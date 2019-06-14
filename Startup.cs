@@ -25,9 +25,16 @@ namespace study_aspnet
                 app.UseDeveloperExceptionPage();
             }
 
+            var livros = new List<Livro>();
+            livros.Add(new Livro("001", "Livro 01", 10.00m));
+            livros.Add(new Livro("002", "Livro 02", 11.00m));
+            livros.Add(new Livro("003", "Livro 03", 12.00m));
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                foreach (var livro in livros) {
+                    await context.Response.WriteAsync($"{livro.Codigo,-10}{livro.Name,-40}{livro.Preco.ToString("C"),10}\r\n");
+                }
             });
         }
     }
