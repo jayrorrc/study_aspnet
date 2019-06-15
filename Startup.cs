@@ -15,7 +15,15 @@ namespace study_aspnet
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ICatalogo, Catalogo>();
+            // services.AddTransient<ICatalogo, Catalogo>();
+            // services.AddTransient<IRelatorio, Relatorio>();
+
+            // services.AddScoped<ICatalogo, Catalogo>();
+            // services.AddScoped<IRelatorio, Relatorio>();
+
+            Catalogo catalogo = new Catalogo();
+            services.AddSingleton<ICatalogo>(catalogo);
+            services.AddSingleton<IRelatorio>(new Relatorio(catalogo));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,7 +38,7 @@ namespace study_aspnet
             }
 
             ICatalogo catalogo = serviceProvider.GetService<ICatalogo>();
-            IRelatorio relatorio = new Relatorio(catalogo);
+            IRelatorio relatorio = serviceProvider.GetService<IRelatorio>();
 
             app.Run(async (context) =>
             {
