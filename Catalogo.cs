@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace study_aspnet
 {
-    public class Catalogo
+    public class Catalogo : ICatalogo
     {
         public List<Livro> GetLivros() {
             var livros = new List<Livro>();
